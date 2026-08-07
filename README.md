@@ -4,11 +4,17 @@ A local-first TypeScript workbench for exploring transparent document review, de
 
 This portfolio project models three small back-office workflows with readable, testable rules. It is a demonstration, not a production accounting system, document-processing service, or hosted application.
 
+## Screenshot
+
+![Desktop view of the synthetic Document Ops Workbench, showing the local document-acceptance status and transparent quote calculation.](docs/assets/workbench-overview.png)
+
+The screenshot uses synthetic data only; the acceptance confirmation is local to the browser and no data is sent or stored.
+
 ## What it demonstrates
 
 ### Document review
 
-The document review flow normalizes fields from a synthetic sample, explains the inferred financial direction and confidence, and records an explicit human correction. A missing tax identifier or ambiguous direction lowers confidence and is surfaced for review.
+The document review flow normalizes fields from a synthetic sample, explains the inferred financial direction and confidence, and records either an explicit human correction or a local human acceptance. A missing tax identifier or ambiguous direction lowers confidence and is surfaced for review.
 
 ### Quote builder
 
