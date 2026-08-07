@@ -1,3 +1,8 @@
+import { DocumentReviewPanel } from '../features/document-review/DocumentReviewPanel'
+import { FinanceLensPanel } from '../features/finance-lens/FinanceLensPanel'
+import { QuoteBuilderPanel } from '../features/quote-builder/QuoteBuilderPanel'
+import { documentScenario, financeScenario, quoteScenario } from '../fixtures/scenarios'
+
 const workspaceLinks = ['Document review', 'Quote builder', 'Finance lens']
 
 export function App() {
@@ -20,7 +25,9 @@ export function App() {
       </nav>
 
       <main>
-        <p>Select a workspace area to explore the prototype.</p>
+        <DocumentReviewPanel scenario={documentScenario.document} />
+        <QuoteBuilderPanel scenario={quoteScenario} />
+        <FinanceLensPanel entries={financeScenario} />
       </main>
     </div>
   )
