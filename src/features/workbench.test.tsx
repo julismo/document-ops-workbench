@@ -12,6 +12,24 @@ describe('operations workbench interactions', () => {
     expect(screen.getByText('Reference: Q-104 → Q-105')).toBeInTheDocument()
   })
 
+  it('records local acceptance when a reviewer accepts the document result', () => {
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Accept review' }))
+
+    expect(screen.getByRole('status')).toHaveTextContent('Review accepted locally. No data was sent.')
+  })
+
+  it('clears acceptance when a reviewer applies a correction', () => {
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Accept review' }))
+    fireEvent.change(screen.getByRole('textbox', { name: 'Reference' }), { target: { value: 'Q-105' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Apply correction' }))
+
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+  })
+
   it('retains the calculated quote total when a manual override is applied', () => {
     render(<App />)
 

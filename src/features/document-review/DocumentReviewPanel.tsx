@@ -10,6 +10,7 @@ export function DocumentReviewPanel({ scenario }: DocumentReviewPanelProps) {
   const [reference, setReference] = useState(sourceReference.trim())
   const [reviewedFields, setReviewedFields] = useState<Record<string, string>>({})
   const [error, setError] = useState('')
+  const [accepted, setAccepted] = useState(false)
   const review = reviewDocument({ ...scenario, reviewedFields })
 
   function applyCorrection() {
@@ -19,6 +20,7 @@ export function DocumentReviewPanel({ scenario }: DocumentReviewPanelProps) {
     }
 
     setReviewedFields({ reference })
+    setAccepted(false)
     setError('')
   }
 
@@ -69,6 +71,8 @@ export function DocumentReviewPanel({ scenario }: DocumentReviewPanelProps) {
           />
           {error && <p className="field-error" id="reference-error" role="alert">{error}</p>}
           <button type="button" onClick={applyCorrection}>Apply correction</button>
+          <button type="button" onClick={() => setAccepted(true)}>Accept review</button>
+          {accepted && <p className="muted" role="status">Review accepted locally. No data was sent.</p>}
 
           <h4>Correction diff</h4>
           {review.changedFields.length === 0 ? (
