@@ -24,6 +24,25 @@ describe('operations workbench interactions', () => {
     expect(screen.getByText('Final total: 240.00 (manual override)')).toBeInTheDocument()
   })
 
+  it('identifies an invalid quantity without marking manual total and clears the error after recovery', () => {
+    render(<App />)
+
+    const quantity = screen.getByRole('spinbutton', { name: 'Quantity' })
+    const manualTotal = screen.getByRole('spinbutton', { name: 'Manual total' })
+    fireEvent.change(quantity, { target: { value: '-1' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Apply override' }))
+
+    expect(quantity).toHaveAttribute('aria-invalid', 'true')
+    expect(quantity).toHaveAccessibleDescription('Enter zero or a positive number for Quantity.')
+    expect(manualTotal).not.toHaveAttribute('aria-invalid')
+
+    fireEvent.change(quantity, { target: { value: '2' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Apply override' }))
+
+    expect(quantity).not.toHaveAttribute('aria-invalid')
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
   it('keeps pipeline amounts outside the realized balance', () => {
     render(<App />)
 
